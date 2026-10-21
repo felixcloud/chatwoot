@@ -1,3 +1,6 @@
+// eyun: 深色模式下把主题色向白色混合提亮(访客气泡里的链接、附件图标与「下载」)
+$eyun-lighten-base: #fff;
+
 .file-uploads .attachment-button + label {
   cursor: pointer;
 }
@@ -88,18 +91,23 @@
       @apply flex items-end flex-row-reverse;
 
       .chat-bubble.user {
-        @apply bg-n-ruby-9 dark:bg-n-ruby-9 #{!important};
+        @apply bg-n-ruby-9 dark:bg-n-ruby-9 text-white #{!important};
       }
     }
   }
 
   .user.has-attachment {
-    .icon-wrap {
-      @apply text-white;
+    .icon-wrap,
+    .download {
+      color: var(--eyun-widget-color);
     }
 
-    .download {
-      @apply text-white;
+    // 深色模式提亮主题色(门户深色主色同样更亮), 深底上才看得清
+    .dark & {
+      .icon-wrap,
+      .download {
+        color: color-mix(in srgb, var(--eyun-widget-color) 55%, $eyun-lighten-base);
+      }
     }
   }
 
@@ -190,16 +198,28 @@
     text-decoration: underline;
   }
 
+  // eyun: 访客气泡用主题色浅底 + 正文色(与门户 bg-primary/10 同调), 不再整块铺满主题色配白字;
+  // 主题色由组件以 --eyun-widget-color 传入, 收件箱换主题色这里跟着变
   &.user {
-    @apply ltr:rounded-br-[0.25rem] rtl:rounded-bl-[0.25rem];
+    @apply ltr:rounded-br-[0.25rem] rtl:rounded-bl-[0.25rem] shadow-none text-n-slate-12;
+    background: color-mix(in srgb, var(--eyun-widget-color) 10%, transparent);
 
     > a {
-      @apply text-white;
+      color: var(--eyun-widget-color);
     }
   }
 
+  .dark &.user {
+    background: color-mix(in srgb, var(--eyun-widget-color) 22%, transparent);
+
+    > a {
+      color: color-mix(in srgb, var(--eyun-widget-color) 55%, $eyun-lighten-base);
+    }
+  }
+
+  // eyun: 客服气泡与门户卡片一致: 白底 + 1px 边框, 不用投影
   &.agent {
-    @apply ltr:rounded-bl-[0.25rem] rtl:rounded-br-[0.25rem] text-n-slate-12;
+    @apply ltr:rounded-bl-[0.25rem] rtl:rounded-br-[0.25rem] text-n-slate-12 shadow-none border border-solid border-n-weak;
 
     .link {
       @apply text-n-brand;

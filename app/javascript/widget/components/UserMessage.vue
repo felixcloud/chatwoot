@@ -130,7 +130,7 @@ export default {
             <div
               v-if="hasAttachments"
               class="chat-bubble has-attachment user"
-              :style="{ backgroundColor: widgetColor }"
+              :style="{ '--eyun-widget-color': widgetColor }"
             >
               <div
                 v-for="attachment in message.attachments"
