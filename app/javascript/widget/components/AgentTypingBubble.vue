@@ -25,6 +25,6 @@ export default {
 
 <style lang="scss" scoped>
 .typing-bubble {
-  @apply max-w-[2.4rem] p-2 ltr:rounded-bl-[1.25rem] rtl:rounded-br-[1.25rem] ltr:rounded-tl-lg rtl:rounded-tr-lg;
+  @apply max-w-[2.4rem] p-2 ltr:rounded-bl-[0.75rem] rtl:rounded-br-[0.75rem] ltr:rounded-tl-lg rtl:rounded-tr-lg;
 }
 </style>
